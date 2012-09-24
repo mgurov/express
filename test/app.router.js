@@ -406,6 +406,18 @@ describe('app.router', function(){
       .get('/file')
       .expect(404, done);
     })
+
+    it('should work with named parameters', function(done){
+      var app = express();
+
+      app.get('/*/:id/*', function(req, res){
+        res.end(req.params.id);
+      });
+
+      request(app)
+      .get('/blah/12/fooe')
+      .expect('12', done);
+    })
   })
 
   describe(':name', function(){
